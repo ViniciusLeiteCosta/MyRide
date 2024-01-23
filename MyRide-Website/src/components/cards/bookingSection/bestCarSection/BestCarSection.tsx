@@ -25,40 +25,57 @@ const buttonStyle = {
   color: '#FBA403',
   backgroundColor: '#403c3c',
 };
-
+  
 const buttonHoverStyle = {
   '&:hover': {
     backgroundColor: '#585454',
+    border: 'none',
+
   },
 };
 
-const BestCarSection = () => {
+const LearnMoreClick = (searchCar: string) => {
+    window.open(`https://www.google.com/search?q=${searchCar}`, '_blank');
+};
+
+const BestCarSection: React.FC = () => {
   
+    interface Car {
+        image: string;
+        title: string;
+        description: string;
+        searchCar: string;
+    }
+
     // Creating an array with all Cars
-  const cars = [
+  const cars: Car[] = [
     {
       image: Car1,
       title: "Basic",
       description:
         "The best balance of price and comfort. You will not go wrong with our basic rides.",
+      searchCar: "Basic+car"
     },
     {
       image: Car2,
       title: "Comfort",
       description:
         "If comfort is your priority, this is the ride for you. It’s spacious and packed with features.",
+      searchCar: "Comfort+car"
     },
     {
       image: Car3,
       title: "Business",
       description:
         "Do you want to travel around the city in style? Make sure to select or business class rides.",
+      searchCar: "Business+car"
     },
     {
       image: Car4,
       title: "Deluxe",
       description:
         "The best ride for luxury and comfort. No compromises here. You’ll surely get what you pay for.",
+      searchCar: "Deluxe+car"
     },
   ];
 
@@ -96,10 +113,9 @@ const BestCarSection = () => {
                     </CardContent>
                     
                     <CardActions>
-                        
-                        <Button style={{ ...buttonStyle, ...buttonHoverStyle }} size="small">
-                            Learn More
-                        </Button>
+                            <Button style={{ ...buttonStyle, ...buttonHoverStyle }} size="small" onClick={() => LearnMoreClick(car.searchCar)}>
+                                Learn More
+                            </Button>
                     
                     </CardActions>
                     </Card>
