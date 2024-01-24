@@ -52,13 +52,6 @@ const typographyStyle = {
   whiteSpace: 'nowrap',
 }
 
-const textfieldStyle = {
-  display: 'flex',
-  padding: '0px 12px',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  alignSelf: 'stretch',
-}
 const bookingSection = () => {
   return (
     <div>     
@@ -80,7 +73,7 @@ const bookingSection = () => {
             
                 <Container style={formStyle}>
                   <Typography>Find a ride now</Typography> 
-                  <TextField style={textfieldStyle} label="Your Pickup" variant="filled" fullWidth />
+                  <TextField label="Your Pickup" variant="filled" fullWidth />
                   <TextField label="Your Destination" variant="filled" fullWidth style={{ marginTop: '10px' }} />
                 </Container>
               </Container>
