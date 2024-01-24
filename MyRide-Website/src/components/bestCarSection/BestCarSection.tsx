@@ -6,9 +6,15 @@ import Car4 from "../../assets/car4.jpg";
 
 // Styles
 const titleStyle = {
+  marginTop: '59px',
   padding: '59px',
+  margin: '-60px',
   color: '#FBA403', 
 };
+
+const carCardStyle = {
+  paddingTop: '60px',
+}
 
 const cardStyle = {
   maxWidth: '331px',
@@ -85,12 +91,11 @@ const BestCarSection: React.FC = () => {
       <Typography style={titleStyle} variant="h6" gutterBottom>
         WHY YOU SHOULD RIDE WITH US?
       </Typography>
-
       <Typography variant="h4" gutterBottom>
         Best in class rides
       </Typography>
 
-      <Grid container spacing={4} justifyContent="center">
+      <Grid style={carCardStyle} container spacing={4} justifyContent="center">
         
             {cars.map((car, index) => (
             
