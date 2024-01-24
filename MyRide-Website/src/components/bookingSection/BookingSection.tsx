@@ -52,6 +52,30 @@ const typographyStyle = {
   whiteSpace: 'nowrap',
 }
 
+const textfieldStyle = {
+  '& label.Mui-focused': {
+    color: '#FBA403', 
+  },
+  '& .MuiInputLabel-root': {
+    color: '#FFFFFF', 
+  },
+  '&:hover .MuiInputLabel-root': {
+    color: '#FBA403', 
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      transition: '0.5s',
+      borderColor: '#5d5d5d', 
+    },
+    '&:hover fieldset': {
+      borderColor: '#FBA403', 
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#FBA403', 
+    },
+  },
+};
+
 const bookingSection = () => {
   return (
     <div>     
@@ -59,7 +83,6 @@ const bookingSection = () => {
             
             <img style={imageStyle} src={CarImage} alt="Yellow Car"></img>
             
-            {/* Container Form */}
             <Container style={bookingForm} > 
 
               <Container style={typographyForm}>
@@ -73,8 +96,8 @@ const bookingSection = () => {
             
                 <Container style={formStyle}>
                   <Typography>Find a ride now</Typography> 
-                  <TextField label="Your Pickup" variant="filled" fullWidth />
-                  <TextField label="Your Destination" variant="filled" fullWidth style={{ marginTop: '10px' }} />
+                  <TextField sx={textfieldStyle} id="outlined-basic" label="Outlined" variant="outlined" label="Your Pickup"  fullWidth />
+                  <TextField sx={textfieldStyle} id="outlined-basic" label="Outlined" variant="outlined" label="Your Destination"  fullWidth style={{ marginTop: '10px' }} />
                 </Container>
               </Container>
             </Container>
