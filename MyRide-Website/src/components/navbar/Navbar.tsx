@@ -1,4 +1,3 @@
-// import React from 'react';
 import Logo from "../../assets/img/Logo.jpg";
 import notificationsIcon from "../../assets/img/bell-icon.png";
 import profilePicture from "../../assets/img/person.png";

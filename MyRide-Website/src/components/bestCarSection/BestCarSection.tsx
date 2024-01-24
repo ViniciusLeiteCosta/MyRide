@@ -1,9 +1,8 @@
-// import React from "react";
 import { Grid, Typography, Card, CardActions, CardContent, CardMedia, Button } from "@mui/material";
-import Car1 from "../../../../assets/car1.jpg";
-import Car2 from "../../../../assets/car2.jpg";
-import Car3 from "../../../../assets/car3.jpg";
-import Car4 from "../../../../assets/car4.jpg";
+import Car1 from "../../assets/car1.jpg";
+import Car2 from "../../assets/car2.jpg";
+import Car3 from "../../assets/car3.jpg";
+import Car4 from "../../assets/car4.jpg";
 
 // Styles
 const titleStyle = {
