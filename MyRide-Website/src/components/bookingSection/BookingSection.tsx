@@ -19,26 +19,28 @@ const imageStyle = {
 
 const bookingForm = {
   display: 'flex',
-  flexDirection: 'column' as const,
-  justifyContent: 'flex-end',
+  flexDirection: 'row' as const,
+  justifyContent: 'center',
   border: 'solid blue',
 }
 
 const typographyForm = {
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'end',
+  justifyContent: 'center',
   border: 'solid yellow',
 }
 
 const formStyle = {
   display: 'flex',
-  padding: '30px 33px',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  gap: '16px',
-  alignSelf: 'stretch',
   backgroundColor: '#2C2C2C',
+  gap: '16px',
+  width: '600px',
+  padding: '20px',
+  marginTop: '30px',
+
 }
 
 const typographyStyle = {
@@ -81,9 +83,9 @@ const bookingSection = () => {
     <div>     
       <Container style={BookingSegment} >
             
-            <img style={imageStyle} src={CarImage} alt="Yellow Car"></img>
-            
             <Container style={bookingForm} > 
+            
+              <img style={imageStyle} src={CarImage} alt="Yellow Car"></img>
 
               <Container style={typographyForm}>
               
@@ -96,7 +98,7 @@ const bookingSection = () => {
             
                 <Container style={formStyle}>
                   <Typography>Find a ride now</Typography> 
-                  <TextField sx={textfieldStyle} id="outlined-basic" label="Outlined" variant="outlined" label="Your Pickup"  fullWidth />
+                  <TextField sx={textfieldStyle} id="outlined-basic" label="Outlined" variant="outlined" label="Current Location"  fullWidth />
                   <TextField sx={textfieldStyle} id="outlined-basic" label="Outlined" variant="outlined" label="Your Destination"  fullWidth style={{ marginTop: '10px' }} />
                 </Container>
               </Container>
