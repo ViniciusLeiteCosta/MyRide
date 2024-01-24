@@ -6,6 +6,7 @@ import Car4 from "../../assets/car4.jpg";
 
 // Styles
 const titleStyle = {
+  padding: '59px',
   color: '#FBA403', 
 };
 
