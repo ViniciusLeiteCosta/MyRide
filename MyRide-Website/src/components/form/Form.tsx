@@ -157,65 +157,7 @@ const switchStyle = {
 const carRadioStyle = {
   ...optionCard,
 };
-    // interface formFields {
-    //   fullname: string;
-    //   email: string;
-    //   country: string;
-    //   city: string;
-    //   referral: string;
-    //   ownsCar: boolean;
-    //   carType: string;
-    // }
 
-    // const [formInput, setFormInput] = useState<IFormInput>({
-    //   fullname: '',
-    //   email: '',
-    //   country: '',
-    //   city: '',
-    //   referral: '',
-    //   ownsCar: false,
-    //   carType: '',
-    // });
-  
-    // const [formErrors, setFormErrors] = useState({
-    //   // making errors
-    // });
-
-    // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //   const { name, value } = event.target;
-    //   setFormInput({ ...formInput, [name]: value });
-    // };
-  
-    // const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //   setFormInput({ ...formInput, ownsCar: event.target.checked });
-    // };
-
-    // const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //   setFormInput({ ...formInput, carType: event.target.value });
-    // };
-
-    // const validateForm = () => {
-    //   // In work
-    // };
-
-    // const handleSubmit = async (event: React.FormEvent) => {
-    //   event.preventDefault();
-    //   if (validateForm()) {
-    //     setIsSubmitting(true);
-    //     // Fetch
-    //     setIsSubmitting(false);
-    //   }
-    // };
-  
-    // const handleSubmit = async (event: React.FormEvent) => {
-    //   event.preventDefault();
-    //   if (validateForm()) {
-    //     setIsSubmitting(true);
-    //     // Data to Send
-    //     setIsSubmitting(false);
-    //   }
-    // };
-    
     const Form: React.FC = () => {
       const [formState, setFormState] = useState({
         fullname: '',
