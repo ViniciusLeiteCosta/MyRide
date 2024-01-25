@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch, RadioGroup, FormControlLabel, Radio} from '@mui/material';
 import formImage from '../../assets/Popup image.png';
 import carSVG1 from '../../assets/Card Image1.svg';
@@ -6,6 +6,10 @@ import carSVG2 from '../../assets/Card Image2.svg';
 import carSVG3 from '../../assets/Card Image3.svg';
 import carSVG4 from '../../assets/Card Image4.svg';
 import countriesAndCities from '../../data/countries-and-cities.json';
+
+//Adjust form and screens
+//make loading 10s 
+//Shown info in screen
 
 //Styles
 const form = {
@@ -35,6 +39,12 @@ const typographyStyle = {
   display: 'flex',
   justifyContent: 'flex-start',
 };
+
+const formStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  margin: '30px',
+}
 
 const textfieldStyle = {
   display: 'flex',
@@ -79,18 +89,9 @@ const optionCard = {
 const carButtons = {
   display: 'flex',
   flexDirection: 'row',
-  marginLeft: '-60px',
+  marginLeft: '-35px',
   b: '#FFF',
 };
-
-//If i need to use it
-// const CountrySelect = () => {
-//     const [countries, setCountries] = useState([]);
-  
-//     useEffect(() => {
-//       setCountries(Object.keys(countriesAndCities));
-//     }, []);
-// }
 
 const countrySelectStyle = {
 
@@ -102,7 +103,7 @@ const countrySelectStyle = {
     margin: '24px -25px 0 -54px',
     
     '& fieldset': {
-        borderColor: '#5d5d5d', // Cor da borda padrão
+        borderColor: '#5d5d5d', 
       },
 
     '&.MuiOutlinedInput-notchedOutline': {  
@@ -156,20 +157,170 @@ const switchStyle = {
 const carRadioStyle = {
   ...optionCard,
 };
+    // interface formFields {
+    //   fullname: string;
+    //   email: string;
+    //   country: string;
+    //   city: string;
+    //   referral: string;
+    //   ownsCar: boolean;
+    //   carType: string;
+    // }
 
-const Form: React.FC = () => {
+    // const [formInput, setFormInput] = useState<IFormInput>({
+    //   fullname: '',
+    //   email: '',
+    //   country: '',
+    //   city: '',
+    //   referral: '',
+    //   ownsCar: false,
+    //   carType: '',
+    // });
+  
+    // const [formErrors, setFormErrors] = useState({
+    //   // making errors
+    // });
 
-  const [ownsCar, setOwnsCar] = useState<boolean>(false);
+    // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   const { name, value } = event.target;
+    //   setFormInput({ ...formInput, [name]: value });
+    // };
+  
+    // const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   setFormInput({ ...formInput, ownsCar: event.target.checked });
+    // };
 
-  const handleOwnsCarChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setOwnsCar(event.target.checked);
-  };
+    // const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   setFormInput({ ...formInput, carType: event.target.value });
+    // };
 
-  const [selectedCar, setSelectedCar] = useState<string>('');
+    // const validateForm = () => {
+    //   // In work
+    // };
 
-  const handleCarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCar(event.target.value);
-  };
+    // const handleSubmit = async (event: React.FormEvent) => {
+    //   event.preventDefault();
+    //   if (validateForm()) {
+    //     setIsSubmitting(true);
+    //     // Fetch
+    //     setIsSubmitting(false);
+    //   }
+    // };
+  
+    // const handleSubmit = async (event: React.FormEvent) => {
+    //   event.preventDefault();
+    //   if (validateForm()) {
+    //     setIsSubmitting(true);
+    //     // Data to Send
+    //     setIsSubmitting(false);
+    //   }
+    // };
+    
+    const Form: React.FC = () => {
+      const [formState, setFormState] = useState({
+        fullname: '',
+        email: '',
+        country: '',
+        city: '',
+        referral: '',
+        ownsCar: false,
+        carType: ''
+      });
+    
+      const [errors, setErrors] = useState({
+        fullname: '',
+        email: '',
+        country: '',
+        city: '',
+        referral: '',
+        carType: ''
+      });
+    
+      const [isSubmitting, setIsSubmitting] = useState(false);
+    
+      const validateFullName = (name: string) => /^[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+$/.test(name);
+      const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const validateReferralCode = (code: string) => /^[A-Z]{3}-\d{3}$/.test(code);
+    
+      const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
+        const { name, value } = event.target as { name: string, value: string };
+        setFormState({ ...formState, [name]: value });
+      };
+    
+      const handleOwnsCarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFormState({ ...formState, ownsCar: event.target.checked });
+      };
+    
+      const handleCarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFormState({ ...formState, carType: event.target.value });
+      };
+    
+      const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        // If it's working send data
+        try {
+          const response = await fetch('http://localhost:3000/cars', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formState), 
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            console.log('Dados salvos:', result);
+          } else {
+            throw new Error('Failed to save');
+          }
+        } catch (error) {
+          console.error('Error trying to send data', error);
+        }
+
+        setErrors({
+          fullname: '',
+          email: '',
+          country: '',
+          city: '',
+          referral: '',
+          carType: ''
+        });
+    
+        let isValid = true;
+        if (!validateFullName(formState.fullname)) {
+          setErrors(prev => ({ ...prev, fullname: 'Invalid name' }));
+          isValid = false;
+        }
+    
+        if (!validateEmail(formState.email)) {
+          setErrors(prev => ({ ...prev, email: 'Invalid email' }));
+          isValid = false;
+        }
+    
+        if (!validateReferralCode(formState.referral)) {
+          setErrors(prev => ({ ...prev, referral: 'Invalid code' }));
+          isValid = false;
+        }
+    
+        if (!formState.country || !formState.city) {
+          setErrors(prev => ({ ...prev, country: 'Select country and city' }));
+          isValid = false;
+        }
+    
+        if (formState.ownsCar && !formState.carType) {
+          setErrors(prev => ({ ...prev, carType: 'Select car type' }));
+          isValid = false;
+        }
+    
+        if (isValid) {
+          setIsSubmitting(true);
+          console.log('Form data', formState);
+          setTimeout(() => {
+////////////////////////////////////////////            setIsSubmitting(false);
+          }, 2000);
+        }
+      };
 
   return (
     <div>
@@ -195,150 +346,110 @@ const Form: React.FC = () => {
             </Grid>
           </Grid>
 
-          <Container>
+          <form style={formStyle} onSubmit={handleSubmit}>
             <TextField
               sx={textfieldStyle}
-              id='outlined-basic'
-              label='Outlined'
-              variant='outlined'
+              name='fullname'
               label='Full Name'
-              alt='Full Name'
-            ></TextField>
-
+              variant='outlined'
+              value={formState.fullname}
+              onChange={handleInputChange}
+              error={!!errors.fullname}
+              helperText={errors.fullname}
+            />
             <TextField
               sx={textfieldStyle}
-              id='outlined-basic'
-              label='Outlined'
-              variant='outlined'
+              name='email'
               label='Email Address'
-              alt='Email Address'
-            ></TextField>
-
-        <Container>
-            <Select
-            
+              variant='outlined'
+              value={formState.email}
+              onChange={handleInputChange}
+              error={!!errors.email}
+              helperText={errors.email}
+            />
+            <Container>
+              <Select
                 labelId='country-label'
-                defaultValue=''
+                name='country'
+                value={formState.country}
+                onChange={handleInputChange}
                 displayEmpty
                 sx={countrySelectStyle}
-                
-                inputProps={{
-                'aria-label': 'Without country selected', 
-                }}
-            >
+              >
                 <MenuItem value='' disabled>
-                Country
+                  Country
                 </MenuItem>
                 {Object.keys(countriesAndCities).map((country) => (
-                <MenuItem key={country} value={country}>{country}</MenuItem>
+                  <MenuItem key={country} value={country}>{country}</MenuItem>
                 ))}
-            </Select>
-        </Container>
-
+              </Select>
+            </Container>
             <TextField
               sx={textfieldStyle}
-              id='outlined-basic'
-              label='Outlined'
-              variant='outlined'
+              name='city'
               label='City'
-              alt='City'
-            ></TextField>
-
+              variant='outlined'
+              value={formState.city}
+              onChange={handleInputChange}
+              error={!!errors.city}
+              helperText={errors.city}
+            />
             <TextField
               sx={textfieldStyle}
-              id='outlined-basic'
-              label='Outlined'
-              variant='outlined'
+              name='referral'
               label='Referral Code'
-              alt='Referral Code'
-            ></TextField>
-
-        <Typography
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              margin: '24px 0 24px -30px',
-            }}
-            alt='I drive my own car'
-          >
-            I drive my own car
-            <Switch
-              sx={switchStyle}
-              checked={ownsCar}
-              onChange={handleOwnsCarChange}
+              variant='outlined'
+              value={formState.referral}
+              onChange={handleInputChange}
+              error={!!errors.referral}
+              helperText={errors.referral}
             />
-        </Typography>
-
-
-            <Typography
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-                margin: '24px 0 16px -30px',
-                color: '#FBA403',
-              }}
-              variant='h6'
-              alt='Select your car type'
-            >
-              Select your car type
+            <Typography style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '24px 0 24px -30px' }} alt='I drive my own car'>
+              I drive my own car
+              <Switch
+                sx={switchStyle}
+                checked={formState.ownsCar}
+                onChange={handleOwnsCarChange}
+                name='ownsCar'
+              />
             </Typography>
-
-            <RadioGroup row value={selectedCar} onChange={handleCarChange} style={carButtons}>
-              <FormControlLabel
-                value='sedan'
-                control={
-                  <Radio
-                    icon={<img alt='Sedan' src={carSVG1} />}
-                    checkedIcon={<img alt='Sedan' src={carSVG1} />}
-                  />
-                }
-                label='Sedan'
-                style={carRadioStyle}
-              />
-              <FormControlLabel
-                value='suv_van'
-                control={
-                  <Radio
-                    icon={<img alt='SUV/Van' src={carSVG2} />}
-                    checkedIcon={<img alt='SUV/Van' src={carSVG2} />}
-                  />
-                }
-                label='SUV/Van'
-                style={carRadioStyle}
-              />
-              <FormControlLabel
-                value='semi_luxury'
-                control={
-                  <Radio
-                    icon={<img alt='Semi Luxury' src={carSVG3} />}
-                    checkedIcon={<img alt='Semi Luxury' src={carSVG3} />}
-                  />
-                }
-                label='Semi Luxury'
-                style={carRadioStyle}
-              />
-              <FormControlLabel
-                value='luxury_car'
-                control={
-                  <Radio
-                    icon={<img alt='Luxury Car' src={carSVG4} />}
-                    checkedIcon={<img alt='Luxury Car' src={carSVG4} />}
-                  />
-                }
-                label='Luxury Car'
-                style={carRadioStyle}
-              />
-            </RadioGroup>
-
+            {formState.ownsCar && (
+              <RadioGroup row value={formState.carType} onChange={handleCarChange} style={carButtons}>
+                <FormControlLabel
+                  value='sedan'
+                  control={<Radio icon={<img alt='Sedan' src={carSVG1} />} checkedIcon={<img alt='Sedan' src={carSVG1} />} />}
+                  label='Sedan'
+                  style={carRadioStyle}
+                />
+                <FormControlLabel
+                  value='suv_van'
+                  control={<Radio icon={<img alt='SUV/Van' src={carSVG2} />} checkedIcon={<img alt='SUV/Van' src={carSVG2} />} />}
+                  label='SUV/Van'
+                  style={carRadioStyle}
+                />
+                <FormControlLabel
+                  value='semi_luxury'
+                  control={<Radio icon={<img alt='Semi Luxury' src={carSVG3} />} checkedIcon={<img alt='Semi Luxury' src={carSVG3} />} />}
+                  label='Semi Luxury'
+                  style={carRadioStyle}
+                />
+                <FormControlLabel
+                  value='luxury_car'
+                  control={<Radio icon={<img alt='Luxury Car' src={carSVG4} />} checkedIcon={<img alt='Luxury Car' src={carSVG4} />} />}
+                  label='Luxury Car'
+                  style={carRadioStyle}
+                />
+              </RadioGroup>
+            )}
             <Button
               variant='contained'
               style={submitButtonStyle}
-              alt='Submit Button'
+              type='submit'
+              disabled={isSubmitting}
             >
               SUBMIT
             </Button>
-          </Container>
+          </form>
         </Container>
       </Container>
     </div>
