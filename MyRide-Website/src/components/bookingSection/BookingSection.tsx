@@ -89,7 +89,7 @@ const bookingSection = () => {
               Need a ride?
             </Typography>
             <Typography align='left' variant='h4' style={typographyStyle}>
-              Book with myRIDE now!
+              Book with <span style={{color: '#FBA403'}}>myRIDE</span> now!
             </Typography>
 
             <Container style={formStyle}>
@@ -97,7 +97,6 @@ const bookingSection = () => {
               <TextField
                 sx={textfieldStyle}
                 id='outlined-basic'
-                label='Outlined'
                 variant='outlined'
                 label='Current Location'
                 fullWidth
@@ -105,7 +104,6 @@ const bookingSection = () => {
               <TextField
                 sx={textfieldStyle}
                 id='outlined-basic'
-                label='Outlined'
                 variant='outlined'
                 label='Your Destination'
                 fullWidth
