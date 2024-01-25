@@ -8,7 +8,7 @@ import carSVG4 from '../../assets/Card Image4.svg';
 import countriesAndCities from '../../data/countries-and-cities.json';
 
 //Adjust form and screens
-//make loading 10s 
+//make loading 
 //Shown info in screen
 
 //Error 'in i drive my own car'
@@ -161,7 +161,7 @@ const switchStyle = {
 const carRadioStyle = {
   ...optionCard,
 };
- 
+
     const Form: React.FC = () => {
       const [formState, setFormState] = useState({
         fullname: '',
