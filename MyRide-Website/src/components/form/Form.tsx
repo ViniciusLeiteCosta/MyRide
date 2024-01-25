@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch, RadioGroup, FormControlLabel, Radio} from '@mui/material';
+import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch, RadioGroup, FormControlLabel, Radio, Alert} from '@mui/material';
 import formImage from '../../assets/Popup image.png';
 import carSVG1 from '../../assets/Card Image1.svg';
 import carSVG2 from '../../assets/Card Image2.svg';
@@ -10,6 +10,10 @@ import countriesAndCities from '../../data/countries-and-cities.json';
 //Adjust form and screens
 //make loading 10s 
 //Shown info in screen
+
+//Error 'in i drive my own car'
+//Submit can only be:
+//with switch on or off and all fields complete
 
 //Styles
 const form = {
@@ -157,65 +161,7 @@ const switchStyle = {
 const carRadioStyle = {
   ...optionCard,
 };
-    // interface formFields {
-    //   fullname: string;
-    //   email: string;
-    //   country: string;
-    //   city: string;
-    //   referral: string;
-    //   ownsCar: boolean;
-    //   carType: string;
-    // }
-
-    // const [formInput, setFormInput] = useState<IFormInput>({
-    //   fullname: '',
-    //   email: '',
-    //   country: '',
-    //   city: '',
-    //   referral: '',
-    //   ownsCar: false,
-    //   carType: '',
-    // });
-  
-    // const [formErrors, setFormErrors] = useState({
-    //   // making errors
-    // });
-
-    // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //   const { name, value } = event.target;
-    //   setFormInput({ ...formInput, [name]: value });
-    // };
-  
-    // const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //   setFormInput({ ...formInput, ownsCar: event.target.checked });
-    // };
-
-    // const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //   setFormInput({ ...formInput, carType: event.target.value });
-    // };
-
-    // const validateForm = () => {
-    //   // In work
-    // };
-
-    // const handleSubmit = async (event: React.FormEvent) => {
-    //   event.preventDefault();
-    //   if (validateForm()) {
-    //     setIsSubmitting(true);
-    //     // Fetch
-    //     setIsSubmitting(false);
-    //   }
-    // };
-  
-    // const handleSubmit = async (event: React.FormEvent) => {
-    //   event.preventDefault();
-    //   if (validateForm()) {
-    //     setIsSubmitting(true);
-    //     // Data to Send
-    //     setIsSubmitting(false);
-    //   }
-    // };
-    
+ 
     const Form: React.FC = () => {
       const [formState, setFormState] = useState({
         fullname: '',
@@ -270,7 +216,6 @@ const carRadioStyle = {
 
           if (response.ok) {
             const result = await response.json();
-            console.log('Dados salvos:', result);
           } else {
             throw new Error('Failed to save');
           }
@@ -288,6 +233,7 @@ const carRadioStyle = {
         });
     
         let isValid = true;
+        
         if (!validateFullName(formState.fullname)) {
           setErrors(prev => ({ ...prev, fullname: 'Invalid name' }));
           isValid = false;
@@ -312,12 +258,12 @@ const carRadioStyle = {
           setErrors(prev => ({ ...prev, carType: 'Select car type' }));
           isValid = false;
         }
-    
+        
         if (isValid) {
           setIsSubmitting(true);
           console.log('Form data', formState);
           setTimeout(() => {
-////////////////////////////////////////////            setIsSubmitting(false);
+          setIsSubmitting(false);
           }, 2000);
         }
       };
@@ -440,6 +386,7 @@ const carRadioStyle = {
                   style={carRadioStyle}
                 />
               </RadioGroup>
+              
             )}
             <Button
               variant='contained'
