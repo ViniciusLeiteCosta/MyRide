@@ -1,9 +1,11 @@
-import { Container, TextField, Typography, Grid, Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Container, TextField, Typography, Grid, Button, MenuItem, Select, InputLabel } from "@mui/material";
 import formImage from "../../assets/Popup image.png";
 import carSVG1 from "../../assets/Card Image1.svg";
 import carSVG2 from "../../assets/Card Image2.svg";
 import carSVG3 from "../../assets/Card Image3.svg";
 import carSVG4 from "../../assets/Card Image4.svg";
+import countriesAndCities from '../../data/countries-and-cities.json';
 
 //Styles
 const form = {
@@ -81,6 +83,49 @@ const carButtons = {
   b: "#FFF",
 };
 
+//If i need to use it
+// const CountrySelect = () => {
+//     const [countries, setCountries] = useState([]);
+  
+//     useEffect(() => {
+//       setCountries(Object.keys(countriesAndCities));
+//     }, []);
+// }
+
+const countrySelectStyle = {
+
+    display: "flex",
+    textAlign: 'left', 
+    flexDirection: 'left',
+    justifyContent: "flex-start",
+    // border: "solid red",
+    margin: "24px -25px 0 -54px",
+
+    '&.MuiOutlinedInput-notchedOutline': {
+        transition: '0.5s',
+        borderColor: '#5d5d5d',
+      },
+      '&:hover .MuiOutlinedInput-notchedOutline': {
+        transition: '0.5s',
+        borderColor: '#FBA403', 
+      },
+      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#FBA403', 
+      },
+      '& .MuiSelect-select': {
+        transition: '0.5s',
+        color: '#FFF', 
+      },
+      '&:hover .MuiSelect-select': {
+        transition: '0.5s',
+        color: '#FBA403', 
+      },
+      '& .MuiSvgIcon-root': { 
+        color: '#FFF',
+      },
+      background: '#282828', 
+}
+
 const submitButtonStyle = {
   display: "flex",
   width: "200px",
@@ -88,6 +133,7 @@ const submitButtonStyle = {
   background: "#FBA403",
   margin: "24px 0 30px -30px",
 };
+
 
 const Form = () => {
   return (
@@ -133,14 +179,25 @@ const Form = () => {
               alt="Email Address"
             ></TextField>
 
-            <TextField
-              sx={textfieldStyle}
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-              label="Country"
-              alt="Country"
-            ></TextField>
+        <Container>
+            <Select
+                labelId="country-label"
+                defaultValue=""
+                displayEmpty
+                sx={countrySelectStyle}
+                
+                inputProps={{
+                'aria-label': 'Without country selected', 
+                }}
+            >
+                <MenuItem value="" disabled>
+                Country
+                </MenuItem>
+                {Object.keys(countriesAndCities).map((country) => (
+                <MenuItem key={country} value={country}>{country}</MenuItem>
+                ))}
+            </Select>
+        </Container>
 
             <TextField
               sx={textfieldStyle}
