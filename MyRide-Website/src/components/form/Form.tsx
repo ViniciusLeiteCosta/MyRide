@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch} from '@mui/material';
+import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch, RadioGroup, FormControlLabel, Radio} from '@mui/material';
 import formImage from '../../assets/Popup image.png';
 import carSVG1 from '../../assets/Card Image1.svg';
 import carSVG2 from '../../assets/Card Image2.svg';
@@ -102,7 +102,7 @@ const countrySelectStyle = {
     margin: '24px -25px 0 -54px',
     
     '& fieldset': {
-        borderColor: '#5d5d5d', 
+        borderColor: '#5d5d5d', // Cor da borda padrão
       },
 
     '&.MuiOutlinedInput-notchedOutline': {  
@@ -153,12 +153,22 @@ const switchStyle = {
   },
 };
 
+const carRadioStyle = {
+  ...optionCard,
+};
+
 const Form: React.FC = () => {
 
   const [ownsCar, setOwnsCar] = useState<boolean>(false);
 
   const handleOwnsCarChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setOwnsCar(event.target.checked);
+  };
+
+  const [selectedCar, setSelectedCar] = useState<string>('');
+
+  const handleCarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedCar(event.target.value);
   };
 
   return (
@@ -274,20 +284,52 @@ const Form: React.FC = () => {
               Select your car type
             </Typography>
 
-            <Container style={carButtons}>
-              <Button style={optionCard}>
-                <img alt='Sedan' src={carSVG1}></img>Sedan
-              </Button>
-              <Button style={optionCard}>
-                <img alt='SUV/Van' src={carSVG2}></img>SUV/Van
-              </Button>
-              <Button style={optionCard}>
-                <img alt='Semi Luxury' src={carSVG3}></img>Semi Luxury
-              </Button>
-              <Button style={optionCard}>
-                <img alt='Luxury Car' src={carSVG4}></img>Luxury Car
-              </Button>
-            </Container>
+            <RadioGroup row value={selectedCar} onChange={handleCarChange} style={carButtons}>
+              <FormControlLabel
+                value='sedan'
+                control={
+                  <Radio
+                    icon={<img alt='Sedan' src={carSVG1} />}
+                    checkedIcon={<img alt='Sedan' src={carSVG1} />}
+                  />
+                }
+                label='Sedan'
+                style={carRadioStyle}
+              />
+              <FormControlLabel
+                value='suv_van'
+                control={
+                  <Radio
+                    icon={<img alt='SUV/Van' src={carSVG2} />}
+                    checkedIcon={<img alt='SUV/Van' src={carSVG2} />}
+                  />
+                }
+                label='SUV/Van'
+                style={carRadioStyle}
+              />
+              <FormControlLabel
+                value='semi_luxury'
+                control={
+                  <Radio
+                    icon={<img alt='Semi Luxury' src={carSVG3} />}
+                    checkedIcon={<img alt='Semi Luxury' src={carSVG3} />}
+                  />
+                }
+                label='Semi Luxury'
+                style={carRadioStyle}
+              />
+              <FormControlLabel
+                value='luxury_car'
+                control={
+                  <Radio
+                    icon={<img alt='Luxury Car' src={carSVG4} />}
+                    checkedIcon={<img alt='Luxury Car' src={carSVG4} />}
+                  />
+                }
+                label='Luxury Car'
+                style={carRadioStyle}
+              />
+            </RadioGroup>
 
             <Button
               variant='contained'
