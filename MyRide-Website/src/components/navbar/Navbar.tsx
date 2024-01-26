@@ -15,6 +15,7 @@ const linkStyle = {
   display: 'flex',
   alignItems: 'center',
   textDecoration: 'none',
+  listStyleType: 'none',
   color: 'white',
   height: '100%',
   margin: '0 20px',
@@ -52,41 +53,52 @@ const separatorStyle = {
 
 const Navbar = () => {
   return (
-    <>
-      <AppBar position='static' style={navbarStyle} elevation={0}>
+    <nav>
+      <AppBar role='navigation' position='static' style={navbarStyle} elevation={0}>
         <Toolbar style={toolbarStyle}>
           <a href='/' style={logoStyle}>
             <img src={Logo} alt='Logo' />
           </a>
 
-          <a href='/' style={linkStyle}>
-            <Typography>Home</Typography>
-          </a>
+        <ul style={linkStyle}>
+          <li>
+            <a href='/' style={linkStyle}>
+              <Typography>Home</Typography>
+            </a>
+          </li>
+          
+          <li>
+            <a href='/' style={linkStyle}>
+              <Typography>Getting a Taxi</Typography>
+            </a>
+          </li>
+          
+          <li>
+            <a href='/' style={linkStyle}>
+              <Typography>Mobile App</Typography>
+            </a>
+          </li>
+          
+          <li>          
+            <a href='/' style={linkStyle}>
+              <Typography>Contact Us</Typography>
+            </a>
+          </li>
+        </ul>
 
-          <a href='/' style={linkStyle}>
-            <Typography>Getting a Taxi</Typography>
-          </a>
+            <a href='/' style={notificationStyle}>
+              <img src={notificationsIcon} alt='Notifications' />
+            </a>
 
-          <a href='/' style={linkStyle}>
-            <Typography>Mobile App</Typography>
-          </a>
+            <div style={separatorStyle}></div>
 
-          <a href='/' style={linkStyle}>
-            <Typography>Contact Us</Typography>
-          </a>
-
-          <a href='/' style={notificationStyle}>
-            <img src={notificationsIcon} alt='Notifications' />
-          </a>
-
-          <div style={separatorStyle}></div>
-
-          <a href='/'>
-            <img style={userAvatarStyle} src={profilePicture} alt='Your Account' />
-          </a>
+            <a href='/'>
+              <img style={userAvatarStyle} src={profilePicture} alt='Your Account' />
+            </a>
+        
         </Toolbar>
       </AppBar>
-    </>
+    </ nav>
   );
 };
 
