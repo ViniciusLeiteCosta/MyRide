@@ -78,6 +78,9 @@ const textfieldStyle = {
     color: '#FBA403',
   },
   '& .MuiOutlinedInput-root': {
+    '& input': {
+      color: '#FFF', 
+    },
     '& fieldset': {
       transition: '0.5s',
       borderColor: '#5d5d5d',
