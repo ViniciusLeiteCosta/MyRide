@@ -4,7 +4,6 @@ import Car2 from '../../assets/car2.jpg';
 import Car3 from '../../assets/car3.jpg';
 import Car4 from '../../assets/car4.jpg';
 
-// Styles
 const titleStyle = {
   marginTop: '59px',
   padding: '59px',
@@ -37,7 +36,6 @@ const buttonStyle = {
   display: 'flex',
   color: '#FBA403',
   backgroundColor: '#403c3c',
-  // border: 'solid red',
 };
 
 const buttonHoverStyle = {
@@ -58,7 +56,6 @@ const BestCarSection: React.FC = () => {
     searchCar: string;
   }
 
-  // Creating an array with all Cars
   const cars: Car[] = [
     {
       image: Car1,

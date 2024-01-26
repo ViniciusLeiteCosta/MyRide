@@ -1,21 +1,13 @@
 import React, { useState} from 'react';
-import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch, RadioGroup, FormControlLabel, Radio, Alert} from '@mui/material';
+import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch, RadioGroup, FormControlLabel, Radio} from '@mui/material';
 import formImage from '../../assets/Popup image.png';
 import carSVG1 from '../../assets/Card Image1.svg';
 import carSVG2 from '../../assets/Card Image2.svg';
 import carSVG3 from '../../assets/Card Image3.svg';
 import carSVG4 from '../../assets/Card Image4.svg';
 import countriesAndCities from '../../data/countries-and-cities.json';
+import FormSuccess from '../form/FormSuccess.tsx'; 
 
-//Adjust form and screens
-//make loading 10s 
-//Shown info in screen
-
-//Error 'in i drive my own car'
-//Submit can only be:
-//with switch on or off and all fields complete
-
-//Styles
 const form = {
   maxWidth: '100%',
   display: 'flex',
@@ -30,11 +22,9 @@ const formHeader = {
   display: 'flex',
   justifyContent: 'flex-start',
   marginTop: '30px',
-  // border: 'solid red',
 };
 
 const defaultContainer = {
-  // border: 'solid white',
   background: '#282828',
   borderRadius: '10px',
 };
@@ -53,7 +43,6 @@ const formStyle = {
 const textfieldStyle = {
   display: 'flex',
   justifyContent: 'flex-start',
-  // border: 'solid purple',
   margin: '24px 0 0 -30px',
 
   '& label.Mui-focused': {
@@ -103,7 +92,6 @@ const countrySelectStyle = {
     textAlign: 'left', 
     flexDirection: 'left',
     justifyContent: 'flex-start',
-    // border: 'solid red',
     margin: '24px -25px 0 -54px',
     
     '& fieldset': {
@@ -181,10 +169,12 @@ const carRadioStyle = {
         referral: '',
         carType: ''
       });
-    
+
+      const [submitted, setSubmitted] = useState(false);
+
       const [isSubmitting, setIsSubmitting] = useState(false);
     
-      const validateFullName = (name: string) => /^[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+$/.test(name);
+      const validateFullName = (name: string) => /^[A-Z][a-z]+(?: [A-Z][a-z]+)+$/.test(name);
       const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       const validateReferralCode = (code: string) => /^[A-Z]{3}-\d{3}$/.test(code);
     
@@ -204,25 +194,90 @@ const carRadioStyle = {
       const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        // If it's working send data
+        setIsSubmitting(true);
+
+        let formIsValid = true;
+        const newErrors = {
+          fullname: '',
+          email: '',
+          country: '',
+          city: '',
+          referral: '',
+          carType: '',
+        };
+
+  
+        if (!validateFullName(formState.fullname)) {
+          newErrors.fullname = 'Invalid name';
+          formIsValid = false;
+        }
+
+        if (!validateEmail(formState.email)) {
+          newErrors.email = 'Invalid email';
+          formIsValid = false;
+        }
+
+        if (!validateReferralCode(formState.referral)) {
+          newErrors.referral = 'Invalid code';
+          formIsValid = false;
+        }
+
+        if (!formState.country) {
+          newErrors.country = 'Country is required';
+          formIsValid = false;
+        }
+
+        if (!formState.city) {
+          newErrors.city = 'City is required';
+          formIsValid = false;
+        } else if (!formState.country) {
+          newErrors.city = 'Select a country first';
+          formIsValid = false;
+        }
+
+        if (formState.ownsCar && !formState.carType) {
+          newErrors.carType = 'Car type is required';
+          formIsValid = false;
+        }
+
+        setErrors(newErrors);
+
+        if (!formIsValid) {
+          setIsSubmitting(false);
+          return;
+        }
+
         try {
           const response = await fetch('http://localhost:3000/cars', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formState), 
+            body: JSON.stringify(formState),
           });
 
           if (response.ok) {
-            const result = await response.json();
+            setSubmitted(true);
           } else {
-            throw new Error('Failed to save');
+            throw new Error('Failed to submit the form');
           }
         } catch (error) {
-          console.error('Error trying to send data', error);
+          console.error('Error trying to send the data', error);
+        } finally {
+          setIsSubmitting(false);
         }
+      };
 
+      const resetForm = () => {
+        setFormState({
+          fullname: '',
+          email: '',
+          country: '',
+          city: '',
+          referral: '',
+          ownsCar: false,
+          carType: ''
+        });
         setErrors({
           fullname: '',
           email: '',
@@ -231,43 +286,25 @@ const carRadioStyle = {
           referral: '',
           carType: ''
         });
-    
-        let isValid = true;
-        
-        if (!validateFullName(formState.fullname)) {
-          setErrors(prev => ({ ...prev, fullname: 'Invalid name' }));
-          isValid = false;
-        }
-    
-        if (!validateEmail(formState.email)) {
-          setErrors(prev => ({ ...prev, email: 'Invalid email' }));
-          isValid = false;
-        }
-    
-        if (!validateReferralCode(formState.referral)) {
-          setErrors(prev => ({ ...prev, referral: 'Invalid code' }));
-          isValid = false;
-        }
-    
-        if (!formState.country || !formState.city) {
-          setErrors(prev => ({ ...prev, country: 'Select country and city' }));
-          isValid = false;
-        }
-    
-        if (formState.ownsCar && !formState.carType) {
-          setErrors(prev => ({ ...prev, carType: 'Select car type' }));
-          isValid = false;
-        }
-        
-        if (isValid) {
-          setIsSubmitting(true);
-          console.log('Form data', formState);
-          setTimeout(() => {
-          setIsSubmitting(false);
-          }, 2000);
-        }
+        setSubmitted(false);
       };
 
+
+      if (submitted) {
+        return (
+          <FormSuccess
+            fullname={formState.fullname}
+            email={formState.email}
+            country={formState.country}
+            city={formState.city}
+            referral={formState.referral}
+            ownsCar={formState.ownsCar}
+            carType={formState.carType}
+            onReset={resetForm}
+          />
+        );
+      }
+ 
   return (
     <div>
       <Container style={form}>

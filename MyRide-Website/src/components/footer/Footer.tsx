@@ -4,7 +4,6 @@ import FacebookIcon from '../../assets/Facebook.png';
 import InstagramIcon from '../../assets/Instagram.png';
 import TwitterIcon from '../../assets/Twitter.png';
 
-// Styles
 const textStyle = {
   marginBottom: '20px',
   color: '#B3B3B3',

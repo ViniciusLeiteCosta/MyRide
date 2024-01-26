@@ -1,13 +1,26 @@
-import { Typography, Container, TextField } from '@mui/material';
+import { Typography, Container, TextField, Button } from '@mui/material';
 import CarImage from '../../assets/img/sectionCarImage.png';
+import magnifierIcon from '../../assets/magnifierIcon.png'
 
-//Styles
+const textFindButtonStyle = {
+  display: 'flex',
+  width: '529px',
+  height: '56px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '4px',
+  color: '#FFF',
+}
+
+const findButtonStyle = {
+  background: '#FBA403',
+}
+
 const BookingSegment = {
   display: 'flex',
   justifyContent: 'flex-end',
   flexDirection: 'row' as const,
   padding: '74px 89px 74px 89px',
-  // border: 'solid green',
 };
 
 const imageStyle = {
@@ -15,21 +28,18 @@ const imageStyle = {
   justifyContent: 'flex-start',
   width: '610px',
   height: '593px',
-  // border: 'solid red'
 };
 
 const bookingForm = {
   display: 'flex',
   flexDirection: 'row' as const,
   justifyContent: 'center',
-  // border: 'solid blue',
 };
 
 const typographyForm = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  // border: 'solid yellow',
 };
 
 const formStyle = {
@@ -41,6 +51,7 @@ const formStyle = {
   width: '600px',
   padding: '20px',
   marginTop: '30px',
+  borderRadius: '4px',
 };
 
 const typographyStyle = {
@@ -51,6 +62,7 @@ const typographyStyle = {
   lineHeight: 'normal' as const,
   letterSpacing: '-0.25px',
   whiteSpace: 'nowrap',
+
 };
 
 const textfieldStyle = {
@@ -89,7 +101,7 @@ const bookingSection = () => {
               Need a ride?
             </Typography>
             <Typography align='left' variant='h4' style={typographyStyle}>
-              Book with <span style={{color: '#FBA403'}}>myRIDE</span> now!
+              Book with <span style={{fontStyle: 'italic', color: '#FBA403'}}>myRIDE</span> now!
             </Typography>
 
             <Container style={formStyle}>
@@ -109,6 +121,9 @@ const bookingSection = () => {
                 fullWidth
                 style={{ marginTop: '10px' }}
               />
+              <Button style={findButtonStyle} variant="outlined">
+                <Typography style={textFindButtonStyle}><img src={magnifierIcon} alt='find a driver' />find a driver</Typography>
+              </Button>
             </Container>
           </Container>
         </Container>
