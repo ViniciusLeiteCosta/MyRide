@@ -1,6 +1,8 @@
-import { Typography, Container, TextField, Button } from '@mui/material';
+import { Typography, Container, TextField, Button, InputAdornment, IconButton } from '@mui/material';
+import ClearIcon from '../../assets/close.png';
 import CarImage from '../../assets/img/sectionCarImage.png';
 import magnifierIcon from '../../assets/magnifierIcon.png'
+import React from 'react';
 
 const textFindButtonStyle = {
   display: 'flex',
@@ -90,6 +92,18 @@ const textfieldStyle = {
 };
 
 const bookingSection = () => {
+
+  const [currentLocation, setCurrentLocation] = React.useState(''); 
+  const [destination, setDestination] = React.useState(''); 
+
+  const handleClearCurrentLocation = () => {
+    setCurrentLocation(''); 
+  };
+
+  const handleClearDestination = () => {
+    setDestination(''); 
+  };
+
   return (
     <div>
       <Container style={BookingSegment}>
@@ -111,15 +125,41 @@ const bookingSection = () => {
                 id='outlined-basic'
                 variant='outlined'
                 label='Current Location'
+                value={currentLocation} 
+                onChange={e => setCurrentLocation(e.target.value)}
                 fullWidth
+                InputProps={{
+                  endAdornment: (
+                    currentLocation && (
+                      <InputAdornment position="end">
+                        <IconButton  onClick={handleClearCurrentLocation}>
+                          <img src={ClearIcon} alt="Clear" />
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  ),
+                }}
               />
               <TextField
                 sx={textfieldStyle}
                 id='outlined-basic'
                 variant='outlined'
                 label='Your Destination'
+                value={destination} 
+                onChange={e => setDestination(e.target.value)}
                 fullWidth
                 style={{ marginTop: '10px' }}
+                InputProps={{
+                  endAdornment: (
+                    destination && (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleClearDestination}>
+                          <img src={ClearIcon} alt="Clear" />
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  ),
+                }}
               />
               <Button style={findButtonStyle} variant="outlined">
                 <Typography style={textFindButtonStyle}><img src={magnifierIcon} alt='find a driver' />find a driver</Typography>

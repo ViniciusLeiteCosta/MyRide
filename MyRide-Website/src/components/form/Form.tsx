@@ -1,10 +1,10 @@
 import React, { useState} from 'react';
 import { Container, TextField, Typography, Grid, Button, MenuItem, Select, Switch, RadioGroup, FormControlLabel, Radio} from '@mui/material';
 import formImage from '../../assets/Popup image.png';
-import carSVG1 from '../../assets/Card Image1.svg';
-import carSVG2 from '../../assets/Card Image2.svg';
-import carSVG3 from '../../assets/Card Image3.svg';
-import carSVG4 from '../../assets/Card Image4.svg';
+import carSVG1 from '../../assets/svg/Card Image1.svg';
+import carSVG2 from '../../assets/svg/Card Image2.svg';
+import carSVG3 from '../../assets/svg/Card Image3.svg';
+import carSVG4 from '../../assets/svg/Card Image4.svg';
 import countriesAndCities from '../../data/countries-and-cities.json';
 import FormSuccess from '../form/FormSuccess.tsx'; 
 
