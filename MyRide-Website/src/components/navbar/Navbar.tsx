@@ -52,8 +52,8 @@ const separatorStyle = {
 
 const Navbar = () => {
   return (
-    <>
-      <AppBar position='static' style={navbarStyle} elevation={0}>
+    <nav>
+      <AppBar role='navigation' position='static' style={navbarStyle} elevation={0}>
         <Toolbar style={toolbarStyle}>
           <a href='/' style={logoStyle}>
             <img src={Logo} alt='Logo' />
@@ -86,7 +86,7 @@ const Navbar = () => {
           </a>
         </Toolbar>
       </AppBar>
-    </>
+    </ nav>
   );
 };
 
