@@ -21,6 +21,11 @@ const linkStyle = {
   margin: '0 20px',
 };
 
+const linkActiveStyle = {
+  ...linkStyle,
+  color: '#FBA403', 
+};
+
 const notificationStyle = {
   display: 'flex',
   alignItems: 'center',
@@ -52,6 +57,8 @@ const separatorStyle = {
 };
 
 const Navbar = () => {
+  const currentPage = 'Home';
+
   return (
     <nav>
       <AppBar role='navigation' position='static' style={navbarStyle} elevation={0}>
@@ -63,7 +70,7 @@ const Navbar = () => {
         <ul style={linkStyle}>
           <li>
             <a href='/' style={linkStyle}>
-              <Typography>Home</Typography>
+              <Typography sx={currentPage === 'Home' ? linkActiveStyle : linkStyle}>Home</Typography>
             </a>
           </li>
           
