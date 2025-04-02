@@ -19,3 +19,8 @@ For inquiries, suggestions, or partnerships, please contact us:
 - Phone: +11 11 00000-0000
 
 Join the MyRide revolution and transform the way the world moves! 🚗✨
+
+## How to use
+
+1) Run 'npm install' to install all the necessary dependecies
+2) Run 'npm run server' in the path 'MyRide\MyRide-Website>' 
